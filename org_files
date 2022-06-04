@@ -1,0 +1,39 @@
+# Autor: Fabiana Bezerra Mangili
+# Date: 15/04/2022
+
+import pandas as pd
+import glob
+import os
+import shutil
+
+indice = '_wsdi_ANN.csv'
+
+'''dir = [i for i in glob.glob('indices_calc/indices/*.csv')]
+
+for f in dir:
+    if indice in f:
+        planihas = pd.read_csv(f, sep='delimiter', header=None).loc[9:44]
+
+        exp_csv = planihas.to_csv(f, sep=',', header=0, index=None)
+print('Atualizado')'''
+
+
+###################### Mover arquivos para pasta ##############################
+path = 'cdd/data/'
+'''source = r'indices_calc/indices/'
+destination = r'indices_org/'+path
+files = os.listdir(source)
+print(files)
+
+for file in files:
+    if indice in file:
+        new_path = shutil.move(f"{source}/{file}", destination)
+        print(new_path)'''
+
+###################### Organizar novamente ##############################
+'''dir = [i for i in glob.glob('indices_org/'+path+'*.csv')]
+for f in dir:
+    df = pd.read_csv(f, sep=', ', names=['ano', 'indice', 'nor'])
+    df2 = df.drop(['nor'], axis=1)
+    
+    exp_csv = df2.to_csv(f, sep=',', header=0, index=None)'''
