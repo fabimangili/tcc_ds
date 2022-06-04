@@ -1,3 +1,6 @@
+# Autor: Fabiana Bezerra Mangili
+# Date: 23/03/2022
+
 import pandas as pd
 import xarray as xr
 import csv
