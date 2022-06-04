@@ -1,0 +1,34 @@
+# Autor: Fabiana Bezerra Mangili
+# Date: 30/05/2022
+
+import pandas as pd
+import glob
+
+dir = [i for i in glob.glob('indices_org/FD0/data/*.csv')]
+lista = []
+for f in dir:
+    planihas = pd.read_csv(f, sep=',', header=None)
+    ind = planihas[1]
+    lista.append(ind)
+    nome = f.split('_')
+    nome_arquivo = nome[2]
+    print(nome_arquivo)
+concat = pd.concat(lista, axis=1)
+concat2 = concat.T
+
+print(concat2)
+#export = concat2.to_csv('indices_org/r30mm.csv', sep=';')
+
+'''dir = [i for i in glob.glob('tendencias_geo/*.csv')]
+media = []
+
+for f in dir:
+indice = 'wsdi6'
+df = pd.read_csv('tendencias_geo/'+indice+'.csv', sep=';', header=0)
+media = []
+
+for i in df.index:
+    media.append(df.loc[i].mean())
+df['Media'] = media
+print(df)
+#export = df.to_csv('tendencias_geo/'+indice+'_media.csv', sep=';', index=False)'''
