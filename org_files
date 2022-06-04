@@ -3,37 +3,28 @@
 
 import pandas as pd
 import glob
-import os
-import shutil
 
-indice = '_wsdi_ANN.csv'
+###### FORMATAR PLANILHA PRA SER LIDA NO RCLIMPACT ######
 
-'''dir = [i for i in glob.glob('indices_calc/indices/*.csv')]
+ext_data = pd.read_csv('extraido_50/precip1.csv', header=None)
+colunmtime = pd.to_datetime(ext_data[0], format="%Y/%m/%d")
+ano, mes, dia = colunmtime.dt.strftime('%Y'), colunmtime.dt.strftime('%m'), colunmtime.dt.strftime('%d')
+listime = [ano, mes, dia]
+time = pd.concat(listime, axis=1, keys=['ano', 'mes', 'dia'])
+lista = []
+arq = glob.glob('extraido_50/*.csv')
+nome = '50'
+for i in arq:
+    dado = pd.read_csv(i, header=None)
+    var = dado[1]
 
-for f in dir:
-    if indice in f:
-        planihas = pd.read_csv(f, sep='delimiter', header=None).loc[9:44]
+    if '(' + nome + ')' in i:
+        lista.append(var)
+        concat = pd.concat(lista, axis=1, join='inner', keys=['precip', 'tmax', 'tmin'])
+        concat2 = pd.concat([time, concat], axis=1)
 
-        exp_csv = planihas.to_csv(f, sep=',', header=0, index=None)
-print('Atualizado')'''
+falhas = concat2.isnull().sum()
+falha_preen = concat2.fillna(-99.9)
+print(falha_preen)
 
-
-###################### Mover arquivos para pasta ##############################
-path = 'cdd/data/'
-'''source = r'indices_calc/indices/'
-destination = r'indices_org/'+path
-files = os.listdir(source)
-print(files)
-
-for file in files:
-    if indice in file:
-        new_path = shutil.move(f"{source}/{file}", destination)
-        print(new_path)'''
-
-###################### Organizar novamente ##############################
-'''dir = [i for i in glob.glob('indices_org/'+path+'*.csv')]
-for f in dir:
-    df = pd.read_csv(f, sep=', ', names=['ano', 'indice', 'nor'])
-    df2 = df.drop(['nor'], axis=1)
-    
-    exp_csv = df2.to_csv(f, sep=',', header=0, index=None)'''
+#exp_csv = falha_preen.to_csv('org_indices/_' + nome + '_cpc.txt', sep=' ', header=0, index=None)
